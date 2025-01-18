@@ -1,61 +1,67 @@
 from art import logo, vs
 from game_data import data # 50 items
 import random
-import os
 
 score = 0
-game_over = False # when game over, end ongoing loop with new comparisons
+game_over = False
 
 print(logo)
-
 list_length = len(data)
 
-def get_random_number():
-    random_number = random.randint(0, list_length - 1)
-    return random_number
+item_b = random.choice(data)
 
-position_a = random.randint(0, list_length - 1)  # -1 to correct for randint stop
-position_b = random.randint(0, list_length - 1)
-
-print(f"Compare A: {data[position_a]['name']}, a {data[position_a]['description']} from {data[position_a]['country']}")
-print(vs)  # https://www.geeksforgeeks.org/how-to-access-dict-attribute-in-python/
-print(f"Against B: {data[position_b]['name']}, a {data[position_b]['description']} from {data[position_b]['country']}")
+def is_correct(choice, a, b):
+    """Check if user guessed correctly and give feedback"""
+    if item_a["follower_count"] > item_b["follower_count"]:
+        return user_choice == "A"
+    else: # choice = "B"
+        return user_choice == "B"
 
 while not game_over:
-    new_index_a = 0
-    new_index_b = 0
+    item_a = item_b
+    item_b = random.choice(data)
+    # check if duplicate
+    if item_a == item_b:
+        item_b = random.choice(data)
+
+    print(f"Compare A: {item_a['name']}, a {item_a['description']} from {item_a['country']}")
+    print(vs)
+    print(f"Against B: {item_b['name']}, a {item_b['description']} from {item_b['country']}")
 
     user_choice = input("Who has more followers? Type 'A' or 'B'").upper()
+
     options = ["A", "B"]
     while not user_choice in options:
         user_choice = input("Who has more followers? Type 'A' or 'B'").upper()
 
-    if user_choice == "A":
-        if data[position_a]['follower_count'] > data[position_b]['follower_count']:
-            score += 1
-            print(f"You are correct! Score: {score}")
-            # clear console
-            print(logo)
-            new_index_a = position_b
-            print(f"Compare A: {data[new_index_a]['name']}, a {data[new_index_a]['description']} from {data[new_index_a]['country']}")
-            print(vs)
-            new_index_b = get_random_number()
-            print(f"The object at index {new_index_b} is {data[new_index_b]}")
-            print(f"Against B: {data[new_index_b]['name']}, a {data[new_index_b]['description']} from {data[new_index_b]['country']}")
-        else:
-            print(f"You lose! Score: {score}")
-            game_over = True
-    else: # user_choice = "B"
-        if data[position_b]['follower_count'] > data[position_a]['follower_count']:
-            score += 1
-            print(f"You are correct! Score: {score}")
-            # a_random_choice becomes this entry
-        else:
-            print(f"You lose! Score: {score}")
-            game_over = True
+    user_answer_correct = is_correct(user_choice, item_a, item_b)
+
+    if user_answer_correct:
+        score += 1
+        print(f"You are correct! New score: {score}")
+        print("\n" * 20)
+    else:
+        print(f"That's wrong. Final score: {score}")
+        game_over = True
 
 
 
-# ONCE CORRECt, B  becomes the A choice in the next iteration.
-#clear console each time
-# nice to have: indices can't be the same
+""" What I've learned on Day 14:
+
+1. item_b should've been outside of the loop. At the very beginning of the loop, we assign the value of item_b
+ to item_a. Then, we we assign a random choice to item_b. This way, upon every iteration, the value of whatever item?b
+ was, will be used for item_a. 
+ 
+ 2. I could've used random.choice(data) on the list instead of saving doing random_choice_a = random.randint(0, length
+ of list -1) to get one object. 
+ 
+ 3. If item_a and item_b are equal, I can easily assign a new random choice to item_b before continuing.
+ 
+ 4. As long as users don't type the letters I requested, they're stuck in an eternal loop.
+ 
+ 5. To check the correct user choice, a function prevents repeating code. First we check which account has the
+ most followers. Then if the user's choice resembles this, and return true or false. We don't JUST call the function.
+ We also save the value in a new variable to print the score or determine the game's over. 
+ 
+ 6. You can't 'just' refer to the function call is_correct, and then do nothing else with it (not call it). It will
+ always be 'truthy' therefore whatever users type, the answer will be correct. """
