@@ -1,7 +1,6 @@
 from art import logo, vs
 from game_data import data # 50 items
 import random
-import os
 
 score = 0
 game_over = False # when game over, end ongoing loop with new comparisons
