@@ -38,12 +38,13 @@ class QuizBrain():
 
 # When we initialize one attribute with a default value, we don't need to add an input to the Class
 
-
-# Learnings: 1. Whatever index I show a question at, I add +1 to what's printed
-# 2. angela defined var to store the current Q. Which makes code cleaner to read.
-#3. in next_question method, we get the current question and store it in a var. AFter that, we're safe to
-# add 1 to self.question_number anyway
-#4 with the still_has_questions method, I checked if list > questions, if true, return false. Otherwise, return true.
-# and added another While loop should continue that I set to true. But we"re alrady using a boolean in the method.
-# no need to do double the work. Switching what we're checking so we get true as long as there are Qs suffices.
-#5. we can simplify the still_has_question method by JUST returning the expression
+"""-- Learnings --
+1. Whatever index I show a question at, I add +1 to what's printed to the user (because index starts at 0).
+2. Angela defined a variable to store the current Q. This makes the code cleaner to read.
+3. In next_question() method, we get the current question, and store it in a var. After that, we're safe to
+add 1 to self.question_number.
+4. With the still_has_questions() method, I checked if list > questions. If true, return false. Otherwise, return true.
+Then I added another While-loop with "should_continue" set to True. But we"re already using a boolean in the method.
+No need to do double the work. Switching what we're checking so we get True as long as there are Qs suffices.
+5. We can simplify the still_has_question() method by ONLY returning the expression.
+"""
