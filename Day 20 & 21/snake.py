@@ -1,35 +1,29 @@
+from turtle import Turtle
+
+
 
 class Snake:
-    def __init__(self, shape="square", color="white", x=0, y=0, penup=True):
-        self.shape = shape
-        self.color = color
-        self.x = x
-        self.y = y
-        self.penup = penup
+    def __init__(self):
+        self.segments = []
+        self.create_snake()
+
 
     def create_snake(self):
         start_x = 0
-
-for i in range(0, 3):   # all of this should go into Snake class
-    square = Turtle("square")
-    square.color("white")
-    square.penup()
-    square.goto(start_x,0)
-    start_x -= 20
-    segments.append(square)
-
-    # def update_x_y(self):
-    #     #do sth
+        for i in range(0, 3):   
+            square = Turtle("square")
+            square.color("white")
+            square.penup()
+            square.goto(start_x, 0)
+            start_x -= 20
+            self.segments.append(square)
     
-    # def move(self):
-        # do sth
 
-#     segments = []
-
-# for seg_num in range(len(segments) - 1, 0, -1):  # index 2, 1, 0
-#     new_x = segments[seg_num -1].xcor()
-#     new_y = segments[seg_num -1].ycor()
-#     segments[seg_num].goto(new_x, new_y)
-# segments[0].forward(20)
-    
+    def move(self):
+        for seg_num in range(len(self.segments) - 1, 0, -1):  # index 2, 1, 0
+            new_x = self.segments[seg_num -1].xcor()
+            new_y = self.segments[seg_num -1].ycor()
+            self.segments[seg_num].goto(new_x, new_y)
+            self.segments[0].forward(20)
+        
 

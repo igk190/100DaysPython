@@ -8,7 +8,7 @@ screen.bgcolor("black")
 screen.title("My Snake Game")
 screen.tracer(0)
 
-snake = Snake() # AHA it's goin to be ONE snake, one instane.
+snake = Snake()
 
 game_is_on = True  
 
