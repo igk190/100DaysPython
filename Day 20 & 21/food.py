@@ -7,7 +7,7 @@ class Food(Turtle):
         super().__init__()
         self.shape("circle")
         self.penup()
-        self.shapesize(stretch_len=0.5, stretch_wid=0.5) # 0.5
+        self.shapesize(stretch_len=0.8, stretch_wid=0.8) 
         self.color("blue")
         self.speed("fastest")
         self.refresh()
@@ -16,5 +16,6 @@ class Food(Turtle):
         random_x = random.randint(-280, 280)
         random_y = random.randint(-280, 280)
         self.goto(random_x, random_y)
-#     render itself as a small circle on the screen
+
+#  render itself as a small circle on the screen
 # everytim e snake tuoches the food, food will move to new pos on screen
