@@ -14,10 +14,7 @@ class Paddle(Turtle):
 
     def set_position(self):
         self.goto(self.coordinates)
-        # self.set_paddle_coordinates()
 
-    # def set_paddle_coordinates(self, xcor, ycor):
-    #     self.goto(xcor, ycor)
 
     def up(self):
         self.fd(20)
