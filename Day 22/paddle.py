@@ -9,11 +9,7 @@ class Paddle(Turtle):
         self.penup()
         self.shapesize(1, 5)
         self.color("white") 
-        self.coordinates = coordinates
-        self.set_position()
-
-    def set_position(self):
-        self.goto(self.coordinates)
+        self.goto(coordinates)
 
 
     def up(self):
