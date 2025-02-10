@@ -27,7 +27,7 @@ while game_is_on:
     # time.sleep(0.1)
     ball.move()
     print(ball.position)
-    
+    ball.detect_wall_collision()
 
 
 
