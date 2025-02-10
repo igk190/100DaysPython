@@ -27,9 +27,11 @@ while game_is_on:
     # time.sleep(0.1)
     ball.move()
     print(ball.position)
-    ball.detect_wall_collision()
+    ball.bounce_off_wall()
 
-
+    # detect collision with paddle
+    if ball.distance(r_paddle) < 50 and ball.xcor() > 340 or ball.distance(l_paddle) < 50 and ball.xcor() < -340:
+        ball.setheading(180- ball.heading())
 
 
 
