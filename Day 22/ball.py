@@ -1,5 +1,5 @@
 from turtle import Turtle
-import random
+from random import randint, choice
 
 class Ball(Turtle):
     def __init__(self):
@@ -7,16 +7,26 @@ class Ball(Turtle):
         self.penup()
         self.shape("circle")
         self.color("white")
-        self.setheading(random.randint(1,90))
+        self.setheading(randint(1,90))
+        self.x_coordinate = 0
 
     def move(self):
         print("ball is moving...")
-        self.fd(1)
+        self.fd(10)
     
     def bounce_off_wall(self):
-        if self.ycor() > 305 or self.ycor() < -305:
+        if self.ycor() > 300 or self.ycor() < -300:
             self.setheading(360 - self.heading())
 
+    def reset(self, x_coordinate):
+        if self.x_coordinate > 400:
+            self.setheading(randint(91, 180))
+        elif self.x_coordinate < -400:
+            x = choice([randint(270, 360), randint(0, 90)]) # right
+            self.setheading(x)
+           
+        self.goto(0,0)
+      
 
 
 """Learnings
