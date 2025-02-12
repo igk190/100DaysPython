@@ -36,6 +36,7 @@ while game_is_on:
     # detect if ball out bounds
     if ball.xcor() > 400 or ball.xcor() < -400:
         ball.reset(ball.xcor())
+ 
    
 
 
