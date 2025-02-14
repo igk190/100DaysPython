@@ -19,17 +19,16 @@ class Ball(Turtle):
             self.setheading(360 - self.heading())
 
     def reset(self, x_coordinate):
-        print(f"Resetting ball. Current position: {self.xcor()}, {self.ycor()}")  
         self.goto(0,0)
-        self.setheading(0)
-        print(f"Ball moved to: {self.xcor()}, {self.ycor()}")  
+        self.setheading(0) 
 
         if x_coordinate > 400:
             self.setheading(randint(91, 180)) # go left
+            
         else:
             new_direction = choice([randint(270, 360), randint(0, 90)]) # go right
             self.setheading(new_direction)
-            print(f"New heading: {self.heading()}")
+
         
       
 

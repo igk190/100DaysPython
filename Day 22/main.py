@@ -2,6 +2,7 @@ from turtle import Screen
 from paddle import Paddle
 from ball import Ball
 import time
+from scoreboard import ScoreBoard
 
 screen = Screen()
 screen.bgcolor("black")
@@ -12,6 +13,7 @@ screen.tracer(0)
 r_paddle = Paddle((350, 0)) 
 l_paddle = Paddle((-350, 0))
 ball = Ball()
+scoreboard = ScoreBoard()
     
 screen.listen()
 
@@ -34,8 +36,13 @@ while game_is_on:
         ball.setheading(180 - ball.heading())
     
     # detect if ball out bounds
-    if ball.xcor() > 400 or ball.xcor() < -400:
+    if ball.xcor() > 400:
         ball.reset(ball.xcor())
+        scoreboard.l_point()
+    elif ball.xcor() < -400:
+        ball.reset(ball.xcor())
+        scoreboard.r_point()
+        
  
    
 
