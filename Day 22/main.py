@@ -21,6 +21,7 @@ screen.onkey(l_paddle.up, "w")
 screen.onkey(l_paddle.down, "s")
 screen.onkey(r_paddle.up, "Up") 
 screen.onkey(r_paddle.down, "Down")
+screen.onkey(ball.rumble_screen, "r")
 
 game_is_on = True
 
@@ -33,7 +34,8 @@ while game_is_on:
 
     # detect collision with paddle
     if ball.distance(r_paddle) < 50 and ball.xcor() > 320 or ball.distance(l_paddle) < 50 and ball.xcor() < -320:
-        ball.setheading(180 - ball.heading())
+        ball.setheading(180 - ball.heading()) 
+        ball.increase_speed()
     
     # detect if ball out bounds
     if ball.xcor() > 400:
