@@ -11,28 +11,27 @@ screen.tracer(0)
 player = Player()
 car_manager = CarManager()
 
-
 screen.listen()
-
 screen.onkey(player.move_up, "Up") 
 
 game_is_on = True
-
-
 while game_is_on:
+    time.sleep(0.1)
     screen.update()
     car_manager.create_car()
     car_manager.move_cars()
-    time.sleep(0.1)
 
-""" randomly generated along y-axis, move to the left edge of the screen.
-   300, randint(-250, 250)
-    Generate a new car only every 6th time the game loop runs. STuck? Step 4."""
+    for car in car_manager.all_cars:
+        if player.distance(car) < 20:
+            print("Crash!")
+            game_is_on = False
+
+screen.exitonclick()
+
+"""Learnings
+1. Forgot about exitonclick! Then all objects stop moving upon colliding"""
 
 
-"""Detect when the turtle player collides with a car and
- stop the game if this happens. If you get stuck, check the 
- video walkthrough in Step 5."""
 
 
 """Detect when the turtle player has reached the top edge 

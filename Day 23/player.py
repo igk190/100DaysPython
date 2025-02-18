@@ -17,4 +17,3 @@ class Player(Turtle):
 
     def move_up(self):
         self.fd(MOVE_DISTANCE)
-        print("turtle is moving")
