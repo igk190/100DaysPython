@@ -29,19 +29,14 @@ while game_is_on:
 
     if player.reached_finish_line():
         player.reset_player()
+        car_manager.increase_speed()
 
 screen.exitonclick()
 
 """Learnings
-1. Forgot about exitonclick! Then all objects stop moving upon colliding"""
-
-
-"""Detect when the player has reached the top edge 
-of the screen (i.e., reached the FINISH_LINE_Y). 
-When this happens, return the turtle to the starting position & 
- increase the speed of the cars. 
- Hint: think about creating an attribute and using the MOVE_INCREMENT to increase the car 
- speed. """
+1. Forgot about exitonclick! Then all objects stop moving upon colliding
+(instead of the screen closing). 
+2. Don't touch the time.sleep func. Increment the backward in car_manager instead."""
 
 
 """Create a scoreboard that keeps track of 
