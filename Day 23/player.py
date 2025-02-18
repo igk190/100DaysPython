@@ -12,7 +12,7 @@ class Player(Turtle):
         self.penup()
         self.shape("turtle")
         self.color("green")
-        self.goto(STARTING_POSITION)
+        self.reset_player()
 
 
     def move_up(self):
@@ -22,5 +22,7 @@ class Player(Turtle):
         self.goto(STARTING_POSITION)
 
     def reached_finish_line(self):
-        if self.ycor() > 280:
+        if self.ycor() > FINISH_LINE_Y:
             return True
+
+# Learnings: if repeating code that's in a method, call the method in init directly.
