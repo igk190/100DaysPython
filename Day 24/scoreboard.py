@@ -12,7 +12,7 @@ class ScoreBoard(Turtle):
         self.high_score = 0
         self.hideturtle()
         self.goto(0, 280)
-        self.writeScore()
+        self.writeScore() # write upon initializing
  
     def writeScore(self): # finally write all scores to screen
         self.clear()
