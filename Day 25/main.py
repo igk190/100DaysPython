@@ -50,7 +50,7 @@ import pandas
 # logged under Primary Fur Color
 # take that data, build a new dataframe from it
 
-data = pandas.read_csv("2018_Central_Park_Squirrel_Data.csv")
-counts = data["Primary Fur Color"].value_counts()
+data = pandas.read_csv("2018_Central_Park_Squirrel_Data.csv") # created DataFrame
+counts = data["Primary Fur Color"].value_counts() # square brackets because spaces in col name
 print(counts)
 counts.to_csv("squirrels.csv")
