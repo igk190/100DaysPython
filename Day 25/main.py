@@ -37,7 +37,7 @@ import pandas
 # monday_temp = monday.temp * 1.8 + 32
 # print(monday_temp)
 
-# create a dataframe from scratch < ----------
+# create a dataframe from scratch <----------
 # data_dict = {
 #     "students": ["Amy", "Henk"],
 #     "grades": [12, 45]
