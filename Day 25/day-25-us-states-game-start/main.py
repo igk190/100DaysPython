@@ -7,12 +7,9 @@ img = "blank_states_img.gif"
 screen.addshape(img)
 turtle.shape(img)
 
-
-
-
-
 def write_state(x, y, state):
     turtle.goto(x, y)
+    turtle.pendown()
     turtle.write(state, True, align="center")
 
 states_correct = 0 # update if correct player guess x/50 St
