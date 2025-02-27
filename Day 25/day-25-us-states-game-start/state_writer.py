@@ -12,6 +12,8 @@ class StateWriter(Turtle):
         self.goto(x, y)
         self.pendown()
         self.write(state, True, align="center")
+    def printsth(self):
+        print("testie")
     
     # def refresh(self):
     #     random_x = random.randint(-280, 280)
