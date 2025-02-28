@@ -12,16 +12,20 @@ state_tracker = StateTracker()
 
 data = pandas.DataFrame(pandas.read_csv("50_states.csv"))
 
-
 answer_state = screen.textinput(title=state_tracker.states_guessed_title, prompt="What's another state name?").title()
-test = print(answer_state in data['state'].unique())
 
-# first_row = data.loc[data['state'] == answer_state]
-# print("First row", first_row) 
+if answer_state in set(data['state']):
+    first_row = data.loc[data['state'] == answer_state]
+    print("correct: ", first_row) 
+else: 
+    print("nope wrong")
 
 
 
-print(answer_state in set(data['state'])) # <-- this could work.
+
+
+
+
 
 
 
