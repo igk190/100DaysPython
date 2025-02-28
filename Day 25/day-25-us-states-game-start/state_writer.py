@@ -1,19 +1,20 @@
 from turtle import Turtle
 
-class StateWriter(Turtle):
+class StateTracker(Turtle):
 
     def __init__(self):
         super().__init__()
+        self.states_guessed_correctly = 0
         self.color("black")
         self.penup()
+        self.states_guessed_title = f"{self.states_guessed_correctly} States Correct"
         # self.refresh()
 
     def write_state(self, x, y, state):
         self.goto(x, y)
         self.pendown()
         self.write(state, True, align="center")
-    def printsth(self):
-        print("testie")
+
     
     # def refresh(self):
     #     random_x = random.randint(-280, 280)
