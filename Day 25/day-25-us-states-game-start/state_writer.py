@@ -10,7 +10,7 @@ class StateTracker(Turtle):
         self.states_guessed_title = f"{self.states_guessed_correctly} States Correct"
         # self.refresh()
 
-    def write_state(self, x, y, state):
+    def write_state(self, state, x, y):
         self.goto(x, y)
         self.pendown()
         self.write(state, True, align="center")

@@ -15,8 +15,9 @@ data = pandas.DataFrame(pandas.read_csv("50_states.csv"))
 answer_state = screen.textinput(title=state_tracker.states_guessed_title, prompt="What's another state name?").title()
 
 if answer_state in set(data['state']):
-    first_row = data.loc[data['state'] == answer_state]
-    print("correct: ", first_row) 
+    state, x, y = data.loc[data['state'] == answer_state].iloc[0]
+    print("FIRST ROW: ", state, x, y) 
+    state_tracker.write_state(state, x, y)
 else: 
     print("nope wrong")
 
@@ -35,7 +36,7 @@ else:
 
 
 
-# turtle.mainloop() # alt way of keeping screen open, alt to exitonclick
+turtle.mainloop() # alt way of keeping screen open, alt to exitonclick
 
 """Learnings
 
@@ -48,6 +49,10 @@ turtle.onscreenclick(get_mouse_click_coor) # pass in click coordinates
 2. screen.textinput() requires a title and prompt.
 
 3. df.isin(values) works on a set or list-like. 
+
+4. "The .loc function allows you to select rows and columns of a dataframe based on labels or conditions."
+    alternative = data.loc[data['state'] == answer_state].iloc[0] gives a subset of the dataframe
+     first_row, x, y = data.loc[data['state'] == answer_state].iloc[0] how you extract vals apparently
 """
 
 
