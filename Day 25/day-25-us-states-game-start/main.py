@@ -1,6 +1,7 @@
 import turtle
 import pandas
 from state_writer import StateTracker
+from tkinter import messagebox
 
 screen = turtle.Screen()
 screen.title("US States Game") # set title upon initialization
@@ -12,14 +13,18 @@ state_tracker = StateTracker()
 
 data = pandas.DataFrame(pandas.read_csv("50_states.csv"))
 
-answer_state = screen.textinput(title=state_tracker.states_guessed_title, prompt="What's another state name?").title()
+while state_tracker.all_guessed_states != 50:
+    
+    answer_state = screen.textinput(title=state_tracker.states_guessed_title, prompt="What's another state name?").title()
 
-if answer_state in set(data['state']):
-    state, x, y = data.loc[data['state'] == answer_state].iloc[0]
-    print("FIRST ROW: ", state, x, y) 
-    state_tracker.write_state(state, x, y)
-else: 
-    print("nope wrong")
+    if answer_state in set(data['state']):
+            if answer_state in state_tracker.all_guessed_states:
+                 messagebox.showinfo("showinfo", "You already guessed this State correctly.") 
+            state, x, y = data.loc[data['state'] == answer_state].iloc[0]
+            print("FIRST ROW: ", state, x, y) 
+            state_tracker.write_state(state, x, y)
+            state_tracker.update_state(state)
+  
 
 
 
