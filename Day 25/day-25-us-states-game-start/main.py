@@ -14,36 +14,17 @@ state_tracker = StateTracker()
 data = pandas.DataFrame(pandas.read_csv("50_states.csv"))
 
 while state_tracker.all_guessed_states != 50:
-
-    answer_state = screen.textinput(title=state_tracker.states_guessed_title, prompt="What's another state name?").title()
-
+    answer_state = screen.textinput(title=state_tracker.states_guessed_title, 
+                                    prompt="What's another state name?").title()
     if answer_state in set(data['state']):
             
             if answer_state in state_tracker.all_guessed_states:
                  messagebox.showinfo("showinfo", "You already guessed this State correctly.") 
             state, x, y = data.loc[data['state'] == answer_state].iloc[0]
-            # print("FIRST ROW: ", state, x, y) 
             state_tracker.write_state(state, x, y)
             state_tracker.update_state(state)
-            
-  
 
 messagebox.showinfo("showinfo", "Congrats, you guessed all 50 US States!") 
-
-
-
-
-
-
-
-
-
-
-# # If user correct, write state name to location of where it exists on map
-# # if guess = wrong, nothing happens, reload input box for another guess.
-
-
-
 
 turtle.mainloop() # alt way of keeping screen open, alt to exitonclick
 
@@ -62,7 +43,9 @@ turtle.onscreenclick(get_mouse_click_coor) # pass in click coordinates
 4. "The .loc function allows you to select rows and columns of a dataframe based on labels or conditions."
     alternative = data.loc[data['state'] == answer_state].iloc[0] gives a subset of the dataframe
      first_row, x, y = data.loc[data['state'] == answer_state].iloc[0] how you extract vals apparently
-"""
+
+5. Title wasn't updating because it showed len(states) at the time of creating it.    
+     """
 
 
 """Tried 
@@ -77,5 +60,12 @@ but this returns anything that matches the string, eg.
 "new" retursn New Hampshire, New Jersey, New Mexico, New York
 
 3. test = print(answer_state in data['state'].unique())  returns a Bool
+
+What works:
+4. state, x, y = data.loc[data['state'] == answer_state].iloc[0] 
+or
+data[data.state == answer state]
+turtle.goto(data.x.item(), data.y.item())
+
 
 """
