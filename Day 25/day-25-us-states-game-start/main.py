@@ -14,17 +14,21 @@ state_tracker = StateTracker()
 data = pandas.DataFrame(pandas.read_csv("50_states.csv"))
 
 while state_tracker.all_guessed_states != 50:
-    
+
     answer_state = screen.textinput(title=state_tracker.states_guessed_title, prompt="What's another state name?").title()
 
     if answer_state in set(data['state']):
+            
             if answer_state in state_tracker.all_guessed_states:
                  messagebox.showinfo("showinfo", "You already guessed this State correctly.") 
             state, x, y = data.loc[data['state'] == answer_state].iloc[0]
-            print("FIRST ROW: ", state, x, y) 
+            # print("FIRST ROW: ", state, x, y) 
             state_tracker.write_state(state, x, y)
             state_tracker.update_state(state)
+            
   
+
+messagebox.showinfo("showinfo", "Congrats, you guessed all 50 US States!") 
 
 
 

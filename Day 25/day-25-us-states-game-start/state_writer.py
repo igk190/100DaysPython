@@ -8,8 +8,7 @@ class StateTracker(Turtle):
         self.color("black")
         self.penup()
         self.hideturtle()
-        self.states_guessed_title = f"{len(self.all_guessed_states)} States Correct"
-        # self.refresh()
+        self.states_guessed_title = f"{len(self.all_guessed_states)}/50 States Correct"
 
     def write_state(self, state, x, y):
         self.goto(x, y)
@@ -17,11 +16,9 @@ class StateTracker(Turtle):
         self.write(state, True, align="center")
         self.penup()
     
+    
     def update_state(self, state):
         self.all_guessed_states.append(state)
+        self.states_guessed_title = f"{len(self.all_guessed_states)}/50 States Correct"
 
     
-    # def refresh(self):
-    #     random_x = random.randint(-280, 280)
-    #     random_y = random.randint(-280, 280)
-    #     self.goto(random_x, random_y)
