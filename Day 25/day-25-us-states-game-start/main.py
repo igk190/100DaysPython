@@ -16,17 +16,34 @@ data = pandas.DataFrame(pandas.read_csv("50_states.csv"))
 while state_tracker.all_guessed_states != 50:
     answer_state = screen.textinput(title=state_tracker.states_guessed_title, 
                                     prompt="What's another state name?").title()
+    
+    if answer_state == "Exit":
+    
+        all_states = data["state"].tolist()
+        states_to_learn = []
+
+        with open("states_to_learn.csv", "w") as file:
+            for state in all_states:
+                if state not in state_tracker.all_guessed_states:
+                    file.write(f"{str(state)}\n")
+                    states_to_learn.append(state)
+        messagebox.showinfo("statestolearn", f"You have {len(states_to_learn)} states to learn.")   
+        break
+
     if answer_state in set(data['state']):
-            
+
             if answer_state in state_tracker.all_guessed_states:
                  messagebox.showinfo("showinfo", "You already guessed this State correctly.") 
             state, x, y = data.loc[data['state'] == answer_state].iloc[0]
             state_tracker.write_state(state, x, y)
             state_tracker.update_state(state)
 
-messagebox.showinfo("showinfo", "Congrats, you guessed all 50 US States!") 
+if state_tracker.all_guessed_states == 50:
+    messagebox.showinfo("showinfo", "Congrats, you guessed all 50 US States!") 
 
-turtle.mainloop() # alt way of keeping screen open, alt to exitonclick
+print("Here's your states to learn: ", states_to_learn)
+
+# turtle.mainloop() # alt way of keeping screen open, alt to exitonclick
 
 """Learnings
 
