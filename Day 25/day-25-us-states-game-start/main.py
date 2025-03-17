@@ -19,14 +19,12 @@ while state_tracker.all_guessed_states != 50:
     
     if answer_state == "Exit":
     
-        all_states = data["state"].tolist()
-        states_to_learn = []
-
-        with open("states_to_learn.csv", "w") as file:
-            for state in all_states:
-                if state not in state_tracker.all_guessed_states:
+        all_states = data["state"].tolist() 
+        
+        with open("states_to_learn.csv", "r+") as file:
+            states_to_learn = [state for state in all_states if state not in state_tracker.all_guessed_states]
+            for state in states_to_learn:
                     file.write(f"{str(state)}\n")
-                    states_to_learn.append(state)
         messagebox.showinfo("statestolearn", f"You have {len(states_to_learn)} states to learn.")   
         break
 
