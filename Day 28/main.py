@@ -20,16 +20,26 @@ window = Tk()
 window.title("Pomodoro")
 window.config(padx=100, pady=50, bg=YELLOW)
 
-
-
 canvas = Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
 tomato_img = PhotoImage(file="./tomato.png")
 canvas.create_image(100, 112, image=tomato_img)
 canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(column=1, row=1)
 
-timer_title = Label(text="Timer", fg=GREEN, font=("Arial", 45), bg=YELLOW)
+timer_title = Label(text="Timer", fg=GREEN, font=(FONT_NAME, 45), bg=YELLOW)
 timer_title.grid(column=1, row=0)
+
+start_btn = Button(text="Start", highlightbackground=YELLOW)
+start_btn.grid(column=0, row=3)
+
+checkmark = "✔"
+checkmark_label = Label(text=checkmark, fg=GREEN, font=(FONT_NAME, 30), bg=YELLOW)
+checkmark_label.grid(column=1, row=3)
+
+stop_btn = Button(text="Stop", highlightbackground=YELLOW)
+stop_btn.grid(column=2, row=3)
+
+
 
 
 # canvas_timer = Canvas(width=20, height=10, bg=YELLOW, highlightthickness=0)
