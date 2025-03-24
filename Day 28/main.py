@@ -9,11 +9,20 @@ FONT_NAME = "Courier"
 WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
-reps = 0
+reps = 4
 CHECKMARK = "✔"
+timer = None
 
 # ---------------------------- TIMER RESET ------------------------------- # 
+def reset_timer():
+    global reps
 
+    window.after_cancel(timer)
+    reps = 0
+    checkmark_label.config(text="")
+    # timer_text.itemconfig(text="00:00")
+    canvas.itemconfig(timer_text, text="00:00")
+    timer_title.config(text="Timer")
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 
 def start_timer():
@@ -47,10 +56,11 @@ def countdown(count): # take input in form of the num to countdown by
     if count_sec < 10: 
         count_sec = f"0{str(count_sec)}"
 
-    if count > -1 : # from zero
+    if count > -1 : # higher than zero
+        global timer
         canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
-        window.after(1000, countdown, count - 1) # after 1K ms, call countdown, and pass in a num
-    else: #   if count == 0:
+        timer = window.after(1000, countdown, count - 1) # after 1K ms, call countdown, and pass in a num
+    else: #   if/once count == 0:
         start_timer()
         print(f"Reps: {reps}")
         if reps % 2 == 0:
@@ -77,8 +87,8 @@ start_btn.grid(column=0, row=3)
 checkmark_label = Label(fg=GREEN, font=(FONT_NAME, 30), bg=YELLOW)
 checkmark_label.grid(column=1, row=3)
 
-stop_btn = Button(text="Stop", highlightbackground=YELLOW)
-stop_btn.grid(column=2, row=3)
+reset_btn = Button(text="Reset", highlightbackground=YELLOW, command=reset_timer)
+reset_btn.grid(column=2, row=3)
 
 
 
@@ -104,5 +114,8 @@ highlightbackground=YELLOW does.
 3. changing text on label. title_label.config(text="...") For a canvas: canvas.itemconfig
 Then you pass in item you want to configure, and the thing you want to change
 canvas.itemconfig(timer_text, text=count)
+
+4. We can also floor the reps to a whole number instead of a float.
+work_session = math.floor(reps/2)
 
 """
