@@ -1,9 +1,8 @@
 from tkinter import * 
+from tkinter import messagebox
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
-
-
 
 def save():
 
@@ -12,28 +11,22 @@ def save():
     website_value = website_entry.get()
     email_value = email_entry.get()
     password_value = password_entry.get()
+    print(website_value == "")
+    print(password_value)
 
-    f.write(f'\n{website_value} | {email_value} | {password_value}')
-    content = f.readlines()
-    print(content)
-    f.close()
+    
+    if website_value == "" or password_value == "": 
+        messagebox.showerror(title="Ups", message="Please fill out all fields.")
+    else:
+        is_ok = messagebox.askokcancel(title=website_value, message=f"The details you entered:\n{email_value}\nPassword: {password_value}. \nIs it okay to save?")
+        if is_ok:
+            f.write(f'\n{website_value} | {email_value} | {password_value}')
+            content = f.readlines()
+            print(content)
+            f.close()
 
-    website_entry.delete(0, 'end')
-    email_entry.delete(0, 'end')
-    password_entry.delete(0, 'end')
-
-
-
-
-
-
-# save that data into file called data.text
-# take all 3 with space in between and pipe symbol or staticmethod
-# on press button, trigger function that saves info in data.txt File
-# append file on new line underneath previous entry
-
-# once press add, all of info except email cleared OUTSIDE
-# look at delete finctoion entirely from an entry
+            website_entry.delete(0, 'end')
+            password_entry.delete(0, 'end')
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -76,3 +69,11 @@ add_btn.grid(column=1, row=4, columnspan=2)
 
 
 window.mainloop()
+
+
+""" Learnings
+
+1. with open(data.txt, "a") as data file: closes the file automatically for you! 
+2. Read the documentation, the param reads "message" not "text."
+
+"""
