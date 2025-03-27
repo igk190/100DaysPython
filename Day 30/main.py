@@ -23,11 +23,10 @@ def generate_password():
 
 def save():
 
-    # f = open("data.txt", "a+")
-
     website_value = website_entry.get()
     email_value = email_entry.get()
     password_value = password_entry.get()
+
     new_data = { 
         website_value: {
         "email": email_value,
@@ -40,22 +39,20 @@ def save():
     else:
         is_ok = messagebox.askokcancel(title=website_value, message=f"The details you entered:\n{email_value}\nPassword: {password_value}. \nIs it okay to save?")
         if is_ok:
-            website_entry.delete(0, 'end')
-            password_entry.delete(0, 'end')
             try:
                 with open("data.json", "r") as f:
                     data = json.load(f) # Read old data
-                    json.dump(data, f, indent=4) # save data
             except FileNotFoundError:
                 with open("data.json", "w") as f:
-                    json.dump(new_data, f, indent=4) # save data
+                   json.dump(new_data, f, indent=4) # save/write data with NEW data, if it caught an error theres nothing from line 44 inside data
             else:
                 data.update(new_data) # update old data with new data
+                with open("data.json", "w") as f:
+                    json.dump(data, f, indent=4)
+            finally:
+                website_entry.delete(0, 'end')
+                password_entry.delete(0, 'end')
 
-          
-
-           
-          
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -105,5 +102,12 @@ window.mainloop()
 1. with open(data.txt, "a") as data file: closes the file automatically for you! 
 
 2. Read the documentation, the param reads "message" not "text."
+
+3. I was stuck on an error I created. The code file is set up as such:
+If there is no file, create one, and write the new_data to it.
+If there IS a file, update, then dump (write) it. The error occurred
+when I deleted the contents out of the Json file, then tried to run the program.
+It's not currently set up for that. The program loaded nothing, tried to update
+it with something. But there was nothing to update. 
 
 """
