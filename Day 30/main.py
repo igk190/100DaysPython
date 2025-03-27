@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from random import randint, choice, shuffle
 import pyperclip
+import json 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -22,31 +23,43 @@ def generate_password():
 
 def save():
 
-    f = open("data.txt", "a+")
-    
+    # f = open("data.txt", "a+")
+
     website_value = website_entry.get()
     email_value = email_entry.get()
     password_value = password_entry.get()
-    print(website_value == "")
-    print(password_value)
+    new_data = { 
+        website_value: {
+        "email": email_value,
+        "password": password_value
+        }
+    }
 
-    
     if website_value == "" or password_value == "": 
         messagebox.showerror(title="Ups", message="Please fill out all fields.")
     else:
         is_ok = messagebox.askokcancel(title=website_value, message=f"The details you entered:\n{email_value}\nPassword: {password_value}. \nIs it okay to save?")
         if is_ok:
-            f.write(f'\n{website_value} | {email_value} | {password_value}')
-            content = f.readlines()
-            print(content)
-            f.close()
-
             website_entry.delete(0, 'end')
             password_entry.delete(0, 'end')
+            try:
+                with open("data.json", "r") as f:
+                    data = json.load(f) # Read old data
+                    json.dump(data, f, indent=4) # save data
+            except FileNotFoundError:
+                with open("data.json", "w") as f:
+                    json.dump(new_data, f, indent=4) # save data
+            else:
+                data.update(new_data) # update old data with new data
+
+          
+
+           
+          
 
 # ---------------------------- UI SETUP ------------------------------- #
 
-window = Tk()
+window = Tk() 
 window.title("Password Manager")
 window.config(padx=20, pady=20, bg="white")
 
