@@ -6,5 +6,9 @@
     "Kleinanzeigen": {
         "email": "hello@email.com",
         "password": "5ekvE$u6BQj5n!#"
+    },
+    "Craigslist": {
+        "email": "Hi@mail.com",
+        "password": "12345"
     }
 }
