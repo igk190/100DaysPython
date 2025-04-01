@@ -22,20 +22,22 @@ def generate_password():
 
 # ---------------------------- FIND PASSWORD ------------------------------- #    
 def find_password():
-    with open("data.json", "r") as f:
-        try:
+    try:
+        with open("data.json", "r") as f:
             data = json.load(f)
-            website_value = website_entry.get().strip()
+    except FileNotFoundError:
+        messagebox.showerror(title="No data here", message="You don't have any passwords saved yet.")
+    else:
+        website_value = website_entry.get()
+        if website_value in data:
             email = data[website_value]["email"]
             password = data[website_value]["password"]
             messagebox.showinfo(title=f"{website_value}", message=f"Email: {email}\nPassword: {password}")
-            print(email, password)
-        except KeyError:
-            if website_value == "":
-                messagebox.showwarning(title="Ups", message="Please enter a website.")
-            else:
-                messagebox.showerror(title="No data found", message=f"You don't have a username and password saved for '{website_value}'.", icon="error")
-
+        elif website_value == "" or website_value == " ":
+            messagebox.showwarning(title="Ups", message="Please enter a website.")
+        else:
+            messagebox.showerror(title="No data found", message=f"You don't have data saved for '{website_value}'.", icon="error")
+        
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 
 def save():
