@@ -1,17 +1,18 @@
 from tkinter import *
 import pandas as pd
 from random import randint
-
-
 BACKGROUND_COLOR = "#B1DDC6"
 PT_FONT = ("Arial", 40, "italic")
 EN_FONT = ("Arial", 60, "bold")
 
 # ------------------------ Read CSV ------------------------
-df = pd.read_csv('data/pt_en.csv')
-# print(df["PT"].values[0])
+df = pd.read_csv('data/pt_en-copy.csv')
+print(df)
+print(df["PT"].values[0])
 
+print(len(df))
 current_card_index = randint(0, len(df)-1)
+
 
 
 # ------------------------ Show answer (flip card) ------------------------
@@ -20,20 +21,25 @@ def show_answer():
     canvas.itemconfig(lang_text, text="English translation", fill="white")
     canvas.itemconfig(word_to_learn, fill="white", text=df["EN"].values[current_card_index])
 
-
 # ------------------------ Next card (get random PT word) ------------------------
 def next_card():
-    global current_card_index
-
-    current_card_index = randint(0, 1000) # reset random int, so show_answer can access it
+    # global current_card_index
+    current_card_index = randint(0, len(df)-1) # reset random int, so show_answer can access it
     canvas.itemconfig(canvas_image, image=card_front)
     canvas.itemconfig(lang_text, text="Portuguese", fill="green")
     canvas.itemconfig(word_to_learn, fill="black", text=df["PT"].values[current_card_index])
-
-    portuguese_word = df["PT"].values[current_card_index]
-
-
     window.after(3000, show_answer)
+
+# ------------------------ Remove from list ------------------------
+def remove_from_list():
+    # portuguese_word = df["PT"].values[current_card_index]
+    df.drop([current_card_index]) # NEEDS axis=index??
+    df.to_csv("words_to_learn.csv", index=False)
+    with open('words_to_learn.csv',  'r') as file:
+        x = file.readlines()
+        # print(x)
+    next_card()
+
 
 window = Tk() 
 window.title("Flashy")
@@ -55,9 +61,8 @@ cross_button = Button(image=wrong_icon, highlightthickness=0, highlightbackgroun
 cross_button.grid(column=0, row=1)
 
 right_icon = PhotoImage(file="images/right.png")
-right_button = Button(image=right_icon, highlightthickness=0, highlightbackground=BACKGROUND_COLOR, command=next_card)
+right_button = Button(image=right_icon, highlightthickness=0, highlightbackground=BACKGROUND_COLOR, command=remove_from_list)
 right_button.grid(column=1, row=1)
-
 
 
 
@@ -72,5 +77,7 @@ Canvas allows us to layer/draw items and overlap them on top of each other.
 
 2. To center images on the canvas, take half of the canvas width and height.
 Positions of text on the canvas are relative to the size canvas too.
+
+3. To not get out of bounds index, take 1 off len().
 
 """
