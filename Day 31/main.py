@@ -6,24 +6,26 @@ PT_FONT = ("Arial", 40, "italic")
 EN_FONT = ("Arial", 60, "bold")
 
 # ------------------------ Read CSV ------------------------
-df = pd.read_csv('data/pt_en-copy.csv')
+try:
+    df = pd.read_csv("words_to_learn.csv")
+except FileNotFoundError:
+    df = pd.read_csv('data/pt_en-copy.csv')
 print(df)
-print(df["PT"].values[0])
-
-print(len(df))
 current_card_index = randint(0, len(df)-1)
-
-
 
 # ------------------------ Show answer (flip card) ------------------------
 def show_answer():
-    canvas.itemconfig(canvas_image, image=card_back) # show back of card
+    canvas.itemconfig(canvas_image, image=card_back) 
     canvas.itemconfig(lang_text, text="English translation", fill="white")
     canvas.itemconfig(word_to_learn, fill="white", text=df["EN"].values[current_card_index])
 
 # ------------------------ Next card (get random PT word) ------------------------
 def next_card():
-    # global current_card_index
+    global df
+    print("df before reset", df)
+    df = df.reset_index(drop=True) # reset index, drop the original one
+    print("df after reset", df)
+
     current_card_index = randint(0, len(df)-1) # reset random int, so show_answer can access it
     canvas.itemconfig(canvas_image, image=card_front)
     canvas.itemconfig(lang_text, text="Portuguese", fill="green")
@@ -32,12 +34,9 @@ def next_card():
 
 # ------------------------ Remove from list ------------------------
 def remove_from_list():
-    # portuguese_word = df["PT"].values[current_card_index]
-    df.drop([current_card_index]) # NEEDS axis=index??
-    df.to_csv("words_to_learn.csv", index=False)
-    with open('words_to_learn.csv',  'r') as file:
-        x = file.readlines()
-        # print(x)
+    global df
+    df = df.drop(df.index[current_card_index]) # remove current row
+    df.to_csv("words_to_learn.csv", index=False) # update CSV with new df/words to learn
     next_card()
 
 
@@ -63,7 +62,6 @@ cross_button.grid(column=0, row=1)
 right_icon = PhotoImage(file="images/right.png")
 right_button = Button(image=right_icon, highlightthickness=0, highlightbackground=BACKGROUND_COLOR, command=remove_from_list)
 right_button.grid(column=1, row=1)
-
 
 
 
