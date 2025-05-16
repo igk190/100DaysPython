@@ -7,7 +7,7 @@ EN_FONT = ("Arial", 60, "bold")
 
 # ------------------------ Read CSV ------------------------
 try:
-    df = pd.read_csv("words_to_learn.csv")
+    df = pd.read_csv("data/words_to_learn.csv")
 except FileNotFoundError:
     df = pd.read_csv('data/pt_en-copy.csv')
 print(df)
@@ -36,7 +36,7 @@ def next_card():
 def remove_from_list():
     global df
     df = df.drop(df.index[current_card_index]) # remove current row
-    df.to_csv("words_to_learn.csv", index=False) # update CSV with new df/words to learn
+    df.to_csv("data/words_to_learn.csv", index=False) # update CSV with new df/words to learn
     next_card()
 
 
@@ -77,5 +77,8 @@ Canvas allows us to layer/draw items and overlap them on top of each other.
 Positions of text on the canvas are relative to the size canvas too.
 
 3. To not get out of bounds index, take 1 off len().
+
+4. When you set index to false in df.to_csv("words_to_learn.csv", index=False), pandas doesn't save the indices.
+It only includes actual words and translations.
 
 """
