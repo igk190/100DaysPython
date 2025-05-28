@@ -26,17 +26,27 @@ bday_persons = bdays[(bdays['month'] == now.month) & (bdays['date'] == now.day)]
 letters = ["letter_1.txt","letter_2.txt","letter_3.txt"]
 
 if len(bday_persons) != 0:
+
     print("Omg someone has their bday!")
     bday_letter = random.choice(letters)
+
+    search_text = "[NAME]"
+    replace_text = bday_persons["name"].iloc[0]
+    print(replace_text) # Henkie
+    
     file_path = "letter_templates/" + bday_letter 
-    with open(file_path) as letter:
-        print(letter.read())
+    with open(file_path, "r") as letter:
+        contents = letter.read()
+        contents = contents.replace(search_text, replace_text)
+        print(contents)
+
 else:
     print("No parties today.")
+
 # bday_person = bdays[(bdays["month"] == now.month) & (bdays["date"] == now.date)]
 # bday_person = bdays[bdays['month'] == now.month]
 
-print("---2", bday_persons)
+# print("---2", bday_persons)
 
 
 
