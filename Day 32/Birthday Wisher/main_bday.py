@@ -23,9 +23,14 @@ bdays = pd.read_csv("birthdays.csv", usecols=["name","email","month","date"]) # 
 # newdf = bdays.query('month == 5 & date == 28')
 
 bday_persons = bdays[(bdays['month'] == now.month) & (bdays['date'] == now.day)]
+letters = ["letter_1.txt","letter_2.txt","letter_3.txt"]
 
 if len(bday_persons) != 0:
     print("Omg someone has their bday!")
+    bday_letter = random.choice(letters)
+    file_path = "letter_templates/" + bday_letter 
+    with open(file_path) as letter:
+        print(letter.read())
 else:
     print("No parties today.")
 # bday_person = bdays[(bdays["month"] == now.month) & (bdays["date"] == now.date)]
