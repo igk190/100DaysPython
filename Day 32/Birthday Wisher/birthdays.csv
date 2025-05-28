@@ -1,2 +1,4 @@
-name,email,year,month,day
-yo,test@email.com,1961,12,21
+name,email,year,month,date
+Henkie,abc@gmail.com,1989,5,28
+Truus,def@hotmail.com,1994,5,25
+Piet,ghi@yahoo.mail,1995,3,10
