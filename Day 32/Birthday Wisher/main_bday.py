@@ -19,14 +19,13 @@ now = dt.datetime.now() # now.day for date of the month
 
 bdays = pd.read_csv("birthdays.csv", usecols=["name","email","month","date"]) # returns pandas df, defines cols to use
 
-# newdf = bdays[(bdays.month == 5) & (bdays.date == 28)]
-# newdf = bdays.query('month == 5 & date == 28')
-
 bday_persons = bdays[(bdays['month'] == now.month) & (bdays['date'] == now.day)]
+# newdf = bdays[(bdays.month == 5) & (bdays.date == 28)]        # alt 1
+# newdf = bdays.query('month == 5 & date == 28')                # alt 2          
 letters = ["letter_1.txt","letter_2.txt","letter_3.txt"]
 
 my_email = "abc@gmail.com"
-password = "blabla"
+password = "abc"
 
 if len(bday_persons) == 0:
     print("No parties today.😢")
@@ -39,24 +38,17 @@ elif len(bday_persons) >= 1:
         file_path = "letter_templates/" + bday_letter 
         
         with open(file_path, "r") as letter:
-            search_text = "[NAME]"
-            replace_text = bday_persons["name"].iloc[index] 
-        
             contents = letter.read()
-            contents = contents.replace(search_text, replace_text)
-
+            contents = contents.replace("[NAME]", row["name"] )
+            print(contents)
             with smtplib.SMTP("smtp.gmail.com") as connection: 
                 connection.starttls() # ensures encryption
                 connection.login(user=my_email, password=password)
                 connection.sendmail(
                     from_addr=my_email, 
-                    to_addrs="abcabc@hotmail.com", 
-                    msg=f"Subject:Happy bday, {replace_text}\n\n{contents}"
+                    to_addrs="abc@hotmail.com", 
+                    msg=f"Subject:Happy bday, {row['name']}\n\n{contents}"
                     )
-
-
-# bday_person = bdays[(bdays["month"] == now.month) & (bdays["date"] == now.date)]
-# bday_person = bdays[bdays['month'] == now.month]
 
 
 """ Learnings
@@ -75,6 +67,13 @@ https://stackoverflow.com/questions/17071871/how-do-i-select-rows-from-a-datafra
 
 6. Loop through rows in a df: https://www.freecodecamp.org/news/how-to-iterate-over-rows-with-pandas-loop-through-a-dataframe/ 
 
+7. Instead of picking a random letter from the letters dict, I could've just inserted random.randint for the letter number,
+since only this value changes. 
+
+After watching solution video
+
+1. today = datetime.now()
+today_tuple = (today.month, today.day)
 """
 
 
