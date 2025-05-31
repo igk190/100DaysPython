@@ -13,7 +13,7 @@ for question in question_data:
 
 
 quiz = QuizBrain(question_bank)
-quiz_ui = QuizInterface() # create new object from QuizInterface
+quiz_ui = QuizInterface(quiz) # create new object from QuizInterface
 
 # while quiz.still_has_questions():
 #     quiz.next_question()
