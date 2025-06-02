@@ -1,4 +1,4 @@
-from art import logo
+# from art import logo
 
 def find_highest_bidder(dict):
     highest_bid = 0
@@ -9,7 +9,7 @@ def find_highest_bidder(dict):
         if bid == highest_bid:
             print(f"The highest bidder is {name} with a bid of {bid}")
 
-print(logo)
+# print(logo)
 print("Welcome to the secret auction program.")
 
 bids = {}

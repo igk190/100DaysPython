@@ -1,5 +1,5 @@
 import random
-import art
+# import art
 
 def deal_card(): # hint 4
     cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
@@ -39,7 +39,7 @@ def compare(user_score, computer_score):
     # why it prints nothing when I use print statements instead of return?
 
 def play_game():
-    print(art.logo)
+    # print(art.logo)
 
     user_cards = []
     user_score = 0

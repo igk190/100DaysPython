@@ -1,5 +1,5 @@
 from turtledemo.penrose import start
-import art
+# import art
 
 def add(n1, n2):
     return n1 + n2
@@ -21,7 +21,7 @@ math_dict = {
 }
 math_dict["*"](4, 8)
 
-print(art.logo)
+# print(art.logo)
 should_continue = True
 user_number_1 = int(input("Type the first number: "))
 # calc_result = 0

@@ -2,5 +2,13 @@
     "Ebay": {
         "email": "hello@email.com",
         "password": "3b&mfFt&5DKDO!"
+    },
+    "Amazon": {
+        "email": "hello@email.com",
+        "password": "p3Zf+#2qP5U8Dwj"
+    },
+    "Facebook": {
+        "email": "hello@email.com",
+        "password": "s$cLq5Wgtx4h&"
     }
 }

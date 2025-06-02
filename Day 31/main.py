@@ -9,7 +9,7 @@ EN_FONT = ("Arial", 60, "bold")
 try:
     df = pd.read_csv("data/words_to_learn.csv")
 except FileNotFoundError:
-    df = pd.read_csv('data/pt_en-copy.csv')
+    df = pd.read_csv('data/pt_en.csv')
 print(df)
 current_card_index = randint(0, len(df)-1)
 
@@ -22,14 +22,16 @@ def show_answer():
 # ------------------------ Next card (get random PT word) ------------------------
 def next_card():
     global df
+    global current_card_index
+
     print("df before reset", df)
     df = df.reset_index(drop=True) # reset index, drop the original one
     print("df after reset", df)
-
+    
     current_card_index = randint(0, len(df)-1) # reset random int, so show_answer can access it
     canvas.itemconfig(canvas_image, image=card_front)
     canvas.itemconfig(lang_text, text="Portuguese", fill="green")
-    canvas.itemconfig(word_to_learn, fill="black", text=df["PT"].values[current_card_index])
+    canvas.itemconfig(word_to_learn, fill="black", text=df["PT"].values[current_card_index]) # 
     window.after(3000, show_answer)
 
 # ------------------------ Remove from list ------------------------

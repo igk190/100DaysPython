@@ -10,7 +10,11 @@ class ScoreBoard(Turtle):
         self.penup()
         self.color("white")
         with open("data.txt") as data:
-            self.high_score = int(data.read())
+            try:
+                self.high_score = int(data.read())
+                print(self.high_score)
+            except ValueError:
+                self.high_score = 0
         self.hideturtle()
         self.goto(0, 280)
         self.writeScore() 

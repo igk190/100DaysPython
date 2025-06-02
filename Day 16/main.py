@@ -14,7 +14,7 @@ money_machine = MoneyMachine()
 machine_on = True
 
 while machine_on:
-    choice = input("What would you like? (espresso/latte/cappuccino):").lower()
+    choice = input("What would you like? (espresso €1.5/latte €2.5/cappuccino €3):").lower()
     options = ["off", "report", "latte", "espresso", "cappuccino"]
     while choice not in options:
         choice = input("Please try again. What would you like? (espresso/latte/cappuccino):").lower()

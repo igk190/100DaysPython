@@ -64,7 +64,7 @@ def update_resources(drink):
 
 machine_off = False
 while not machine_off:
-    user_choice = input("What would you like? (espresso/latte/cappuccino):").lower()
+    user_choice = input("What would you like? (espresso €1.5/latte €2.5/cappuccino €3):").lower()
 
     options = ["off", "report", "espresso","latte","cappuccino"]
     while user_choice not in options: # make sure user inputs valid command from available options
