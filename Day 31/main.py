@@ -27,7 +27,7 @@ def next_card():
     print("df before reset", df)
     df = df.reset_index(drop=True) # reset index, drop the original one
     print("df after reset", df)
-    
+
     current_card_index = randint(0, len(df)-1) # reset random int, so show_answer can access it
     canvas.itemconfig(canvas_image, image=card_front)
     canvas.itemconfig(lang_text, text="Portuguese", fill="green")
@@ -82,5 +82,9 @@ Positions of text on the canvas are relative to the size canvas too.
 
 4. When you set index to false in df.to_csv("words_to_learn.csv", index=False), pandas doesn't save the indices.
 It only includes actual words and translations.
+
+! 5.Python can READ global vars inside a function. To MODIFY them, you must first inside the function
+declare them with global. I was reading current_card_index locally. When I assigned it, I was assigning it  
+locally and not updating the global var.
 
 """
