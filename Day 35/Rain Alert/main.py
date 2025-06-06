@@ -5,9 +5,9 @@ from twilio.http.http_client import TwilioHttpClient
 
 
 OWM_endpoint = "https://api.openweathermap.org/data/2.5/forecast"
-api_key = "geheim"
-account_sid = "geheim"
-auth_token = "geheim"
+OWM_api_key = os.environ.get("OWM_API_KEY")
+account_sid = os.environ.get("TWILIO_ACC_SID")
+twilio_auth_token = os.environ.get("TWILIO_AUTH_TOKEN")
 
 latitude = 41.649693
 longitude = -0.887712
@@ -15,7 +15,7 @@ longitude = -0.887712
 weather_params = {
     "lat": latitude,
     "lon": longitude,
-    "appid": api_key,
+    "appid": OWM_api_key,
     "cnt": 4
 }
 
@@ -37,11 +37,11 @@ for item in weather_data["list"]:
 if rain_is_coming:
     proxy_client = TwilioHttpClient(proxy={'http': os.environ['http_proxy'], 'https': os.environ['https_proxy']})
 
-    client = Client(account_sid, auth_token, http_client=proxy_client)
+    client = Client(account_sid, twilio_auth_token, http_client=proxy_client)
     message = client.messages.create(
     body="It's gonna rain, gotta bring an umbrella!☂️",
-    from_="+geheim",
-    to="+geheim")
+    from_=os.environ.get("TWILIO_FROM_NUM"),
+    to=os.environ.get("WA_NUM"))
     print(message.status)
 
     # message = client.messages.create(
