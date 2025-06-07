@@ -1,17 +1,15 @@
 import requests
 import os
+from datetime import datetime as dt, timedelta
+from itertools import islice
+import json
 
 STOCK_NAME = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 
-STOCK_ENDPOINT = "https://www.alphavantage.co/query"
+STOCK_ENDPOINT = "https://www.alphavantage.co/query" # https://www.alphavantage.co/documentation/#daily
 NEWS_ENDPOINT = "https://newsapi.org/v2/everything"
-
- ## STEP 1: Use https://www.alphavantage.co/documentation/#daily
-# When stock price increase/decreases by 5% between yesterday and the day before yesterday
-# then print("Get News") --> daily close
 AV_API_KEY = os.getenv("AV_API_KEY")
-print(AV_API_KEY)
 
 stock_params = {
     "function": "TIME_SERIES_DAILY",
@@ -20,29 +18,30 @@ stock_params = {
     "apikey": AV_API_KEY
 }
 
-
-# Arary mit 2 Objekten > 2. Objekt Time Series (Daily) > Datum yyyy-mm-dd > "4. close"
-
-
-
-#TODO 1. - Get yesterday's closing stock price. Hint: You can perform list 
-# comprehensions on Python dictionaries. e.g. [new_value for (key, value) in dictionary.items()]
-
-response = requests.get(STOCK_ENDPOINT, params=stock_params)
+"""response = requests.get(STOCK_ENDPOINT, params=stock_params)
 response.raise_for_status()
-print(response.status_code)
-stock_data = response.json()
-print(stock_data)
+print(response.status_code, "\n")
+stock_data = response.json()""" # reached API request limit of 25/day
 
-#TODO 2. - Get the day before yesterday's closing stock price
+stock_data = {'2025-06-06': {'1. open': '267.9900', '2. high': '270.1700', '3. low': '267.5300', '4. close': '268.8700', '5. volume': '2495543'}, '2025-06-05': {'1. open': '265.2000', '2. high': '267.5100', '3. low': '265.1000', '4. close': '266.8600', '5. volume': '2659478'}}
 
-#TODO 3. - Find the positive difference between 1 and 2. e.g. 40 - 20 = -20, but the 
-# positive difference is 20. Hint: https://www.w3schools.com/python/ref_func_abs.asp
+yesterday = (dt.now() - timedelta(1)).strftime('%Y-%m-%d')
+day_before_yesterday = (dt.now() - timedelta(2)).strftime('%Y-%m-%d')
 
-#TODO 4. - Work out the percentage difference in price between closing price yesterday 
-# and closing price the day before yesterday.
+stock_yesterday = stock_data[yesterday]["4. close"]
+stock_yesterday = int(stock_yesterday.replace(".", ""))
+stock_day_before_yesterday = stock_data[day_before_yesterday]["4. close"]
+stock_day_before_yesterday = int(stock_day_before_yesterday.replace(".", ""))
 
-#TODO 5. - If TODO4 percentage is greater than 5 then print("Get News").
+price_diff = ((stock_day_before_yesterday - stock_yesterday) / stock_yesterday) * 100
+
+if abs(price_diff) > 5:
+    print("Get news")
+
+# print(stock_data["Time Series (Daily)"]["2025-06-06"]["4. close"])
+# closing_prices = [value for (key, value) in stock_data["Time Series (Daily)"]]
+# closing_prices = dict(islice(stock_data["Time Series (Daily)"].items(), 2))
+
 
     ## STEP 2: https://newsapi.org/ 
     # Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
@@ -79,7 +78,17 @@ Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and 
 
 """ Learnings
 
-1. os.getenv() is shorthand for os.environ.get()
+1. os.getenv() is shorthand for os.environ.get(), never commit sensitive data to public repo.
 
+2. datetime module has a "timedelta" object that lets you create spans of time. It gives you
+the duration of one day and you can subtract it from datetime objects: 
+yesterday = datetime.now() - timedelta(1)
+https://stackoverflow.com/questions/30483977/python-get-yesterdays-date-as-a-string-in-yyyy-mm-dd-format
+
+3. Remove sign in front of number with abs(): https://www.w3schools.com/python/ref_func_abs.asp
+
+4. Quite challenging to access a dict key, based on a daily changing date. Implemented
+a workaround with datetime.now() minus timedelta(1 or 2), formatting it the same way
+as it's displayed in the API response, then inserting that as the key.
 """
 
