@@ -4,16 +4,16 @@ This repo contains projects I'm working on during the **100 Days of Code: The Co
 
 **Final projects cover:**
 
-- dict comprehension
-- reading CSVs
+- opening, reading, and writing to files
 - creating dataframes from pandas
-- creating tuples
-- file paths
-- opening, reading, and writing files
-- datetime modules
-- sending emails
-- requests module
+- datetime & requests module
+- interacting with APIs
+- sending emails & SMS
+- dict comprehension
 - converting to OOP
+- creating tuples
+- reading CSVs
+- file paths
 
 > [!TIP]
 > Day 1-17 cover text-based programs and games (Rock Paper Scissors, Secret Auction, Hangman, Number Guessing Game, Coffee Machine).
