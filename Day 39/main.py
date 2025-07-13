@@ -4,6 +4,18 @@ import requests
 
 r = requests.get('someEndpoint') 
 
+# TODOS 
+"""sheety_flightdeals_url = os.getenv("SHEETY_FLIGHTDEALS_URL")
+SHEETY_FLIGHTDEALS_BEARER_TOKEN = os.getenv("SHEETY_FLIGHTDEALS_BEARER_TOKEN")
+sheety_headers = {
+"Authorization": f"Bearer {SHEETY_FLIGHTDEALS_BEARER_TOKEN}
+}
+sheety_r = requests.get(sheety_flightdeals_url)
+print(sheety_r.json())
+"""
+
+
+
 
 
 
