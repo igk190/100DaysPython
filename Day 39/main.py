@@ -1,18 +1,18 @@
 #This file will need to use the DataManager,FlightSearch, FlightData, NotificationManager classes to achieve the program requirements.
 import os
-import requests
+import requests 
+import json
+from pprint import pprint
 
-r = requests.get('someEndpoint') 
-
-# TODOS 
-"""sheety_flightdeals_url = os.getenv("SHEETY_FLIGHTDEALS_URL")
+SHEETY_FLIGHTDEALS_ENDPOINT = os.getenv("SHEETY_FLIGHTDEALS_ENDPOINT")
 SHEETY_FLIGHTDEALS_BEARER_TOKEN = os.getenv("SHEETY_FLIGHTDEALS_BEARER_TOKEN")
+
 sheety_headers = {
-"Authorization": f"Bearer {SHEETY_FLIGHTDEALS_BEARER_TOKEN}
+    "Authorization": f"Bearer {SHEETY_FLIGHTDEALS_BEARER_TOKEN}"
 }
-sheety_r = requests.get(sheety_flightdeals_url)
-print(sheety_r.json())
-"""
+
+sheety_r = requests.get(SHEETY_FLIGHTDEALS_ENDPOINT, headers=sheety_headers)
+pprint(sheety_r.json())
 
 
 
@@ -37,12 +37,13 @@ r.json() to use the built-in JSON decoder
 To check if a request is successful:
 r.raise_for_status()
 
-To add headers, pass in a dict to the headers param
+To add headers, pass in a dict to the headers param (see requests documentation)
 headers = {'user-agent': 'my-app/0.0.1'}
 r = requests.get(url, headers=headers)
 
 To send form-encoded data: pass a dict to the 'data' arg.
 
 
+4. Object ID is just the row number in Sheety.
 
 """
