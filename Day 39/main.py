@@ -11,8 +11,36 @@ sheety_headers = {
     "Authorization": f"Bearer {SHEETY_FLIGHTDEALS_BEARER_TOKEN}"
 }
 
-sheety_r = requests.get(SHEETY_FLIGHTDEALS_ENDPOINT, headers=sheety_headers)
-pprint(sheety_r.json())
+# sheety_r = requests.get(SHEETY_FLIGHTDEALS_ENDPOINT, headers=sheety_headers)
+# sheet_data = sheety_r.json()
+# pprint(sheet_data["prices"]) 
+
+sheet_data = [
+    {'city': 'Paris', 'iataCode': '', 'id': 2, 'lowestPrice': 54},
+    {'city': 'Frankfurt', 'iataCode': '', 'id': 3, 'lowestPrice': 42},
+    {'city': 'Tokyo', 'iataCode': '', 'id': 4, 'lowestPrice': 485},
+    {'city': 'Hong Kong', 'iataCode': '', 'id': 5, 'lowestPrice': 551},
+    {'city': 'Istanbul', 'iataCode': '', 'id': 6, 'lowestPrice': 95},
+    {'city': 'Kuala Lumpur', 'iataCode': '', 'id': 7, 'lowestPrice': 414},
+    {'city': 'New York', 'iataCode': '', 'id': 8, 'lowestPrice': 240},
+    {'city': 'San Francisco', 'iataCode': '', 'id': 9, 'lowestPrice': 260},
+    {'city': 'Dublin', 'iataCode': '', 'id': 10, 'lowestPrice': 378}
+    ]
+pprint(sheet_data)
+
+field_key = ""
+
+for index, el in enumerate(sheet_data):
+    if el["iataCode"] == "":
+        print(f"{index} Empty!")
+        el["iataCode"] = "TESTING"
+    else:
+        print(el["iataCode"])
+
+for item in sheet_data:
+    print(item["iataCode"])
+
+pprint(sheet_data)
 
 
 
